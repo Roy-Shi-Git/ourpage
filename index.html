@@ -14,9 +14,6 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <!-- SimpleLightbox -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -136,16 +133,21 @@
                     <span class="section-tag">相册墙</span>
                     <h2 class="section-title">碎片日常</h2>
                 </div>
-                <div class="gallery-filter" data-aos="fade-up">
-                    <button class="filter-btn active" data-filter="all">全部</button>
-                    <button class="filter-btn" data-filter="travel">旅行</button>
-                    <button class="filter-btn" data-filter="daily">日常</button>
-                    <button class="filter-btn" data-filter="food">美食</button>
-                    <button class="filter-btn" data-filter="fun">搞怪</button>
-                    <button class="filter-btn" data-filter="festival">节日</button>
-                </div>
-                <div class="gallery-grid" id="gallery-grid">
-                    <!-- Gallery items will be populated by JavaScript -->
+                <div class="photo-slideshow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="slideshow-wrapper">
+                        <div class="slideshow-track" id="slideshow-track"></div>
+                    </div>
+                    <button class="slideshow-arrow slideshow-prev" id="slideshow-prev" aria-label="上一张">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <button class="slideshow-arrow slideshow-next" id="slideshow-next" aria-label="下一张">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                    <div class="slideshow-counter" id="slideshow-counter"></div>
                 </div>
             </div>
         </section>
@@ -246,8 +248,6 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

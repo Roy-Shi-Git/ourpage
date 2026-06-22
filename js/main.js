@@ -33,7 +33,6 @@ const elements = {
     minutesCount: document.getElementById('minutes-count'),
     secondsCount: document.getElementById('seconds-count'),
     timeline: document.querySelector('.timeline'),
-    galleryGrid: document.getElementById('gallery-grid'),
     lightbox: document.getElementById('lightbox'),
     lightboxImage: document.querySelector('.lightbox-image'),
     lightboxCaption: document.querySelector('.lightbox-caption'),
@@ -41,8 +40,7 @@ const elements = {
     easterEgg: document.getElementById('easter-egg'),
     surpriseModal: document.getElementById('surprise-modal'),
     surpriseText: document.querySelector('.surprise-text'),
-    surpriseClose: document.querySelector('.surprise-close'),
-    filterBtns: document.querySelectorAll('.filter-btn')
+    surpriseClose: document.querySelector('.surprise-close')
 };
 
 // ========================================
@@ -219,78 +217,111 @@ async function initTimeline() {
 }
 
 // ========================================
-// Gallery
+// Photo Slideshow
 // ========================================
-async function initGallery() {
-    if (!elements.galleryGrid) return;
-    
-    try {
-        const response = await fetch('images/gallery_data.json');
-        const photos = await response.json();
-        
-        const fragment = document.createDocumentFragment();
-        
-        photos.forEach((photo, index) => {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.dataset.category = photo.category || 'daily';
-            item.dataset.src = photo.src;
-            item.dataset.caption = photo.caption;
-            
-            item.innerHTML = `
-                <img src="images/${photo.src}" alt="${photo.caption}" loading="lazy">
-                <div class="gallery-item-overlay">
-                    <span class="gallery-item-caption">${photo.caption}</span>
-                </div>
-            `;
-            
-            item.addEventListener('click', () => openLightbox(`images/${photo.src}`, photo.caption));
-            fragment.appendChild(item);
-        });
-        
-        elements.galleryGrid.appendChild(fragment);
-        
-        // Filter functionality
-        elements.filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                elements.filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const filter = btn.dataset.filter;
-                const items = document.querySelectorAll('.gallery-item');
-                
-                items.forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                // Re-initialize masonry
-                if (window.masonryInstance) {
-                    window.masonryInstance.destroy();
-                }
-                initMasonry();
+let slideshowPhotos = [];
+let slideshowIndex = 0;
+let slideshowTimer = null;
+let slideshowTransitioning = false;
+
+const SLIDESHOW_INTERVAL = 3000; // 3s per photo
+
+function initSlideshow() {
+    const track = document.getElementById('slideshow-track');
+    const counter = document.getElementById('slideshow-counter');
+    const prevBtn = document.getElementById('slideshow-prev');
+    const nextBtn = document.getElementById('slideshow-next');
+    if (!track) return;
+
+    fetch('images/gallery_data.json')
+        .then(r => r.json())
+        .then(photos => {
+            slideshowPhotos = photos;
+            if (slideshowPhotos.length === 0) return;
+
+            // Preload all images
+            slideshowPhotos.forEach(p => {
+                const img = new Image();
+                img.src = `images/${p.src}`;
+            });
+
+            // Build initial slide
+            track.innerHTML = `<img src="images/${slideshowPhotos[0].src}" alt="${slideshowPhotos[0].caption}" class="slideshow-img active">`;
+            updateCounter();
+
+            // Auto-play
+            startSlideshow();
+
+            // Controls
+            prevBtn.addEventListener('click', () => {
+                stopSlideshow();
+                goToSlide((slideshowIndex - 1 + slideshowPhotos.length) % slideshowPhotos.length);
+                startSlideshow();
+            });
+            nextBtn.addEventListener('click', () => {
+                stopSlideshow();
+                goToSlide((slideshowIndex + 1) % slideshowPhotos.length);
+                startSlideshow();
             });
         });
-        
-        initMasonry();
-        
-    } catch (error) {
-        console.log('Error loading gallery data:', error);
+}
+
+function goToSlide(index) {
+    if (slideshowTransitioning || index === slideshowIndex) return;
+    slideshowTransitioning = true;
+
+    const track = document.getElementById('slideshow-track');
+    const imgs = track.querySelectorAll('.slideshow-img');
+    const nextImg = document.createElement('img');
+    nextImg.src = `images/${slideshowPhotos[index].src}`;
+    nextImg.alt = slideshowPhotos[index].caption;
+    nextImg.className = 'slideshow-img entering';
+
+    track.appendChild(nextImg);
+
+    // Trigger transition
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            nextImg.classList.add('active');
+        });
+    });
+
+    const removeOld = () => {
+        imgs.forEach(img => img.classList.remove('active'));
+        setTimeout(() => imgs.forEach(img => img.remove()), 1500);
+        slideshowTransitioning = false;
+    };
+
+    nextImg.addEventListener('transitionend', removeOld, { once: true });
+
+    slideshowIndex = index;
+    updateCounter();
+}
+
+function startSlideshow() {
+    stopSlideshow();
+    slideshowTimer = setInterval(() => {
+        goToSlide((slideshowIndex + 1) % slideshowPhotos.length);
+    }, SLIDESHOW_INTERVAL);
+}
+
+function stopSlideshow() {
+    if (slideshowTimer) {
+        clearInterval(slideshowTimer);
+        slideshowTimer = null;
     }
 }
 
-function initMasonry() {
-    if (typeof Masonry !== 'undefined' && elements.galleryGrid) {
-        window.masonryInstance = new Masonry(elements.galleryGrid, {
-            itemSelector: '.gallery-item',
-            columnWidth: '.gallery-item',
-            percentPosition: true,
-            gutter: 16
-        });
-    }
+function updateCounter() {
+    const el = document.getElementById('slideshow-counter');
+    if (el) el.textContent = `${slideshowIndex + 1} / ${slideshowPhotos.length}`;
+}
+
+// ========================================
+// Gallery (removed - replaced by slideshow)
+// ========================================
+async function initGallery() {
+    // No-op: gallery is replaced by slideshow
 }
 
 // ========================================
@@ -421,7 +452,7 @@ async function init() {
         initImageFallbacks();
         
         await initTimeline();
-        await initGallery();
+        initSlideshow();
         
         updateCounter();
         setInterval(updateCounter, 1000);

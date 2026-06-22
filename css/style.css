@@ -674,94 +674,105 @@ button {
 }
 
 /* ========================================
-   Gallery Section
+   Photo Slideshow Section
    ======================================== */
 .gallery-section {
     background: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
     padding: var(--spacing-xl) 0;
 }
 
-.gallery-filter {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: 25px;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border);
-    transition: all var(--transition-medium);
-}
-
-.filter-btn:hover {
-    border-color: var(--color-accent-primary);
-    color: var(--color-accent-tertiary);
-}
-
-.filter-btn.active {
-    background: var(--color-accent-primary);
-    color: #fff;
-    border-color: var(--color-accent-primary);
-}
-
-.gallery-grid {
-    column-count: 4;
-    column-gap: var(--spacing-sm);
-}
-
-.gallery-item {
-    break-inside: avoid;
-    margin-bottom: var(--spacing-sm);
+.photo-slideshow {
     position: relative;
-    border-radius: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
     overflow: hidden;
-    cursor: pointer;
-    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px);
     box-shadow: var(--shadow-heavy);
 }
 
-.gallery-item img {
+.slideshow-wrapper {
+    position: relative;
     width: 100%;
-    display: block;
-    transition: transform var(--transition-slow);
+    aspect-ratio: 3 / 2;
+    background: #1a1a1a;
+    overflow: hidden;
 }
 
-.gallery-item:hover img {
-    transform: scale(1.05);
+.slideshow-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-.gallery-item-overlay {
+.slideshow-img {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--spacing-md);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    color: #fff;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
-    transform: translateY(10px);
-    transition: all var(--transition-medium);
+    transition: opacity 1.2s ease;
 }
 
-.gallery-item:hover .gallery-item-overlay {
+.slideshow-img.entering {
+    opacity: 0;
+}
+
+.slideshow-img.active {
     opacity: 1;
-    transform: translateY(0);
+    z-index: 1;
 }
 
-.gallery-item-caption {
+.slideshow-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    z-index: 2;
+    padding: 0;
+}
+
+.slideshow-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.slideshow-arrow:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.slideshow-prev {
+    left: 16px;
+}
+
+.slideshow-next {
+    right: 16px;
+}
+
+.slideshow-counter {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
+    z-index: 2;
 }
 
 /* ========================================
@@ -1106,10 +1117,6 @@ button {
    Responsive Design
    ======================================== */
 @media (max-width: 1024px) {
-    .gallery-grid {
-        column-count: 3;
-    }
-
     .story-intro {
         gap: var(--spacing-md);
     }
@@ -1134,10 +1141,6 @@ button {
 
     .first-impression-card {
         text-align: left;
-    }
-
-    .gallery-grid {
-        column-count: 2;
     }
 
     .timeline::before {
@@ -1209,10 +1212,6 @@ button {
 }
 
 @media (max-width: 480px) {
-    .gallery-grid {
-        column-count: 1;
-    }
-
     .gallery-images img,
     .timeline-images img {
         width: 200px !important;
