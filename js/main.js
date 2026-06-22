@@ -166,10 +166,10 @@ async function initTimeline() {
             const item = document.createElement('div');
             item.className = 'timeline-item ' + (index % 2 === 0 ? 'left' : 'right');
             item.dataset.index = index;
-            
+
             const date = new Date(event.date);
             const formattedDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
-            
+
             let imagesHTML = '';
             if (event.images && event.images.length > 0) {
                 imagesHTML = '<div class="timeline-images">';
@@ -178,8 +178,9 @@ async function initTimeline() {
                 });
                 imagesHTML += '</div>';
             }
-            
+
             item.innerHTML = `
+                <div class="timeline-dot"></div>
                 <div class="timeline-date">${formattedDate}</div>
                 <div class="timeline-title">${event.title}</div>
                 <div class="timeline-text">${event.description}</div>
