@@ -29,9 +29,9 @@
     --spacing-xl: 6rem;
 
     /* Animation */
-    --transition-slow: 1s ease;
-    --transition-medium: 0.6s ease;
-    --transition-fast: 0.3s ease;
+    --transition-slow: 3s ease;
+    --transition-medium: 1.5s ease;
+    --transition-fast: 0.6s ease;
 
     /* Shadows */
     --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
