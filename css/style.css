@@ -571,7 +571,9 @@ button {
     padding-right: var(--spacing-xl);
     padding-left: var(--spacing-sm);
     transform: translateY(30px) translateX(-30px);
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .timeline-item.right {
@@ -580,7 +582,15 @@ button {
     padding-left: var(--spacing-xl);
     padding-right: var(--spacing-sm);
     transform: translateY(30px) translateX(30px);
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.timeline-item.left .timeline-images,
+.timeline-item.right .timeline-images {
+    align-items: center;
+    width: 100%;
 }
 
 .timeline-item::before {
@@ -651,14 +661,24 @@ button {
 
 .timeline-images {
     display: flex;
+    flex-direction: column;
     gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-sm);
+    width: 100%;
+}
+
+.timeline-item.left .timeline-images {
+    align-items: center;
+}
+
+.timeline-item.right .timeline-images {
+    align-items: center;
 }
 
 .timeline-images img {
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 12px;
     cursor: pointer;
@@ -668,14 +688,6 @@ button {
 
 .timeline-images img:hover {
     transform: scale(1.1);
-}
-
-.timeline-item.left .timeline-images {
-    justify-content: flex-end;
-}
-
-.timeline-item.right .timeline-images {
-    justify-content: flex-start;
 }
 
 /* ========================================
