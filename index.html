@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的第 2000 天 | Two Thousand Days Together</title>
+    <meta name="description" content="从相识到相守，两千个日夜，幸好是你。">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- SimpleLightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-heart">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <p class="loading-text">正在加载我们的回忆...</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-percent">0%</p>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+
+    <!-- Music Button -->
+    <button id="music-btn" class="music-btn" aria-label="播放背景音乐">
+        <div class="music-icon">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <svg class="music-note" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+    <audio id="bgm" loop preload="none" autoplay>
+        <source src="media/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+
+        <!-- Section 1: Hero Cover -->
+        <section id="hero" class="section hero-section">
+            <div class="hero-bg">
+                <img src="images/cover/cover.jpg" alt="我们的合照" class="hero-image" loading="eager">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
+                <h1 class="hero-title">我们的第 2000 天</h1>
+                <p class="hero-subtitle">两千个日夜，幸好是你</p>
+                <p class="hero-date">2020.12.31 — 2026.06.22</p>
+            </div>
+            <div class="scroll-hint" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000">
+                <span>向下滑动开启回忆</span>
+                <div class="scroll-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M19 12l-7 7-7-7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="day-counter" data-aos="fade-up" data-aos-delay="500">
+                <span class="counter-label">我们已经在一起</span>
+                <div class="counter-display">
+                    <span class="counter-number" id="days-count">2000</span>
+                    <span class="counter-unit">天</span>
+                </div>
+                <div class="counter-time">
+                    <span id="hours-count">00</span> 时 <span id="minutes-count">00</span> 分 <span id="seconds-count">00</span> 秒
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Story Beginning - First Meeting -->
+        <section id="story-start" class="section story-start-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">故事开篇</span>
+                    <h2 class="section-title">相遇</h2>
+                </div>
+                <div class="story-intro">
+                    <div class="story-text" data-aos="fade-right" data-aos-duration="1000">
+                        <p class="story-date">2020 年 12 月 31 日</p>
+                        <p class="story-content">
+                            那一年年末，我们在命运的安排下相遇了。
+                            第一次见面时的紧张与心动，至今仍清晰地记得。
+                            你的笑容，像春天里绽放的花，让一切都变得美好起来。
+                        </p>
+                        <div class="first-impression-card" data-aos="fade-up" data-aos-delay="300">
+                            <h4>初识印象</h4>
+                            <p>"她笑起来真好看，让人忍不住想要一直守护。"</p>
+                        </div>
+                    </div>
+                    <div class="story-image" data-aos="fade-left" data-aos-duration="1000">
+                        <img src="images/timeline/first_meeting.jpg" alt="初次相遇" loading="lazy">
+                        <span class="image-caption">初见于 2020年末</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Timeline - Key Moments -->
+        <section id="timeline" class="section timeline-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">时间线</span>
+                    <h2 class="section-title">两千天的点滴</h2>
+                </div>
+                <div class="timeline">
+                    <!-- Timeline items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Photo Gallery -->
+        <section id="gallery" class="section gallery-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">相册墙</span>
+                    <h2 class="section-title">碎片日常</h2>
+                </div>
+                <div class="gallery-filter" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="travel">旅行</button>
+                    <button class="filter-btn" data-filter="daily">日常</button>
+                    <button class="filter-btn" data-filter="food">美食</button>
+                    <button class="filter-btn" data-filter="fun">搞怪</button>
+                    <button class="filter-btn" data-filter="festival">节日</button>
+                </div>
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Gallery items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Love Letter -->
+        <section id="letter" class="section letter-section">
+            <div class="section-container">
+                <div class="letter-content" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="section-header">
+                        <span class="section-tag">心里话</span>
+                        <h2 class="section-title">想对你说的话</h2>
+                    </div>
+                    <div class="letter-body">
+                        <p class="letter-greeting">亲爱的：</p>
+                        <div class="letter-text">
+                            <p data-aos="fade-up" data-aos-delay="200">
+                                两千天，说长不长，说短不短。回头看看走过的路，每一步都有你的脚印。
+                            </p>
+                            <p data-aos="fade-up" data-aos-delay="400">
+                                记得第一次约会时的紧张，记得第一次旅行时的兴奋，记得每一次争吵后的和好，
+                                记得每一个平凡日子里的相视一笑。这些点点滴滴，构成了我们最珍贵的回忆。
+                            </p>
+                            <p data-aos="fade-up" data-aos-delay="600">
+                                感谢你包容我的小脾气，感谢你在我需要时给予的拥抱，感谢你让我的世界变得完整。
+                                未来的日子里，希望我们还能一起看更多的风景，一起经历更多的第一次。
+                            </p>
+                            <p data-aos="fade-up" data-aos-delay="800">
+                                两千天只是开始，我们的故事还在继续。
+                                我想牵着你的手，走过接下来的每一个两千天。
+                            </p>
+                            <p class="letter-signature" data-aos="fade-up" data-aos-delay="1000">
+                                永远爱你的人<br>
+                                <span class="signature-date">2026.06.22</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Ending & Future -->
+        <section id="ending" class="section ending-section">
+            <div class="ending-bg">
+                <div class="ending-overlay"></div>
+            </div>
+            <div class="ending-content">
+                <div class="ending-badge" data-aos="zoom-in" data-aos-duration="1200">
+                    <span class="badge-number">2000</span>
+                    <span class="badge-text">未完待续</span>
+                </div>
+                <div class="ending-photo" data-aos="fade-up" data-aos-delay="300">
+                    <img src="images/cover/recent.jpg" alt="我们的近照" loading="lazy">
+                </div>
+                <div class="ending-names" data-aos="fade-up" data-aos-delay="500">
+                    <p class="names-text">To: 未来的每一个两千天</p>
+                    <p class="names-date">2020.12.31 — ♾️</p>
+                </div>
+            </div>
+
+            <!-- Easter Egg -->
+            <div id="easter-egg" class="easter-egg" data-surprise="你找到彩蛋啦！我爱你，比昨天多一点，比明天少一点。">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="heart-icon">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with <span class="heart">♥</span> for our 2000 days</p>
+            <p class="footer-date">2020.12.31 — 2026.06.22</p>
+        </footer>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-image" src="" alt="">
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <!-- Surprise Modal -->
+    <div id="surprise-modal" class="surprise-modal">
+        <div class="surprise-content">
+            <div class="surprise-heart">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <p class="surprise-text"></p>
+            <button class="surprise-close">♥</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.7.0/simple-lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
