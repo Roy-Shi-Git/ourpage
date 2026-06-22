@@ -99,18 +99,36 @@ function updateProgressBar() {
 function initMusic() {
     elements.bgm.volume = CONFIG.musicVolume;
     
-    // Auto-play on first user interaction
+    // Try to play immediately when loading screen is hidden
     const enableAutoplay = () => {
         elements.bgm.play().then(() => {
             elements.musicBtn.classList.add('playing');
-        }).catch(err => {
-            console.log('Auto-play blocked by browser, waiting for user interaction');
+        }).catch(() => {
+            // If blocked, wait for any user interaction
         });
         document.removeEventListener('click', enableAutoplay);
         document.removeEventListener('touchstart', enableAutoplay);
     };
-    document.addEventListener('click', enableAutoplay);
-    document.addEventListener('touchstart', enableAutoplay);
+    
+    // Play as soon as loading screen is hidden (user can see the page)
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node === loadingScreen && loadingScreen.classList.contains('hidden')) {
+                        setTimeout(enableAutoplay, 600);
+                        observer.disconnect();
+                    }
+                });
+            });
+        });
+        observer.observe(loadingScreen.parentNode, { childList: true });
+        
+        // Fallback: also listen for click/touch
+        document.addEventListener('click', enableAutoplay, { once: true });
+        document.addEventListener('touchstart', enableAutoplay, { once: true });
+    }
     
     // Toggle play/pause on button click
     elements.musicBtn.addEventListener('click', (e) => {
@@ -144,7 +162,7 @@ async function initTimeline() {
         
         events.forEach((event, index) => {
             const item = document.createElement('div');
-            item.className = 'timeline-item';
+            item.className = 'timeline-item ' + (index % 2 === 0 ? 'left' : 'right');
             item.dataset.index = index;
             
             const date = new Date(event.date);

@@ -553,7 +553,7 @@ button {
 
 .timeline-item {
     position: relative;
-    width: 100%;
+    width: 45%;
     max-width: 800px;
     margin: 0 auto var(--spacing-lg);
     padding: var(--spacing-md);
@@ -563,29 +563,44 @@ button {
     text-align: center;
 }
 
+.timeline-item.left {
+    margin-right: auto;
+    padding-right: var(--spacing-xl);
+    transform: translateY(30px) translateX(-30px);
+}
+
+.timeline-item.right {
+    margin-left: auto;
+    padding-left: var(--spacing-xl);
+    transform: translateY(30px) translateX(30px);
+}
+
+.timeline-item::before {
+    left: 0;
+    transform: translateX(-50%);
+    transition: all var(--transition-medium);
+}
+
+.timeline-item.left::before {
+    left: 100%;
+}
+
 .timeline-item.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    top: 24px;
-    left: 50%;
-    width: 16px;
-    height: 16px;
-    background: var(--color-bg-primary);
-    border: 3px solid var(--color-accent-primary);
-    border-radius: 50%;
-    transform: translateX(-50%);
-    transition: all var(--transition-medium);
+.timeline-item.visible.left {
+    transform: translateY(0) translateX(0);
 }
 
-.timeline-item:hover::before {
-    background: var(--color-accent-primary);
+.timeline-item.visible.right {
+    transform: translateY(0) translateX(0);
+}
+
+.timeline-item.left:hover::before,
+.timeline-item.right:hover::before {
     transform: translateX(-50%) scale(1.3);
-    box-shadow: 0 0 20px rgba(212, 165, 165, 0.5);
 }
 
 .timeline-date {
