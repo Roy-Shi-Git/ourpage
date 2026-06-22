@@ -379,7 +379,7 @@ function initImageFallbacks() {
         img.addEventListener('error', function() {
             this.style.background = 'linear-gradient(135deg, #E8C4C4, #D4A5A5)';
             this.style.minHeight = '150px';
-            this.alt = '图片加载中...';
+            this.alt = '记录我们的瞬间';
         });
     });
 }
@@ -420,7 +420,7 @@ async function init() {
         
         console.log('🎉 纪念日网站已加载完成！');
         console.log(`📅 从 ${CONFIG.startDate.toLocaleDateString('zh-CN')} 开始`);
-        console.log('💡 提示：请将你的背景音乐放入 media/bgm.mp3');
+        console.log('💡 提示：背景音乐请放在 media/bgm.mp3');
         
     }, 100);
 }
