@@ -395,8 +395,9 @@ button {
 .day-counter {
     position: absolute;
     bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 5%;
+    left: auto;
+    transform: none;
     z-index: 2;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
@@ -554,25 +555,32 @@ button {
 .timeline-item {
     position: relative;
     width: 45%;
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto var(--spacing-lg);
     padding: var(--spacing-md);
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .timeline-item.left {
-    margin-right: auto;
+    margin-right: 50%;
+    margin-left: auto;
     padding-right: var(--spacing-xl);
+    padding-left: var(--spacing-sm);
     transform: translateY(30px) translateX(-30px);
+    text-align: left;
 }
 
 .timeline-item.right {
-    margin-left: auto;
+    margin-left: 50%;
+    margin-right: auto;
     padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-sm);
     transform: translateY(30px) translateX(30px);
+    text-align: right;
 }
 
 .timeline-item::before {
@@ -584,13 +592,17 @@ button {
     background: var(--color-bg-primary);
     border: 3px solid var(--color-accent-primary);
     border-radius: 50%;
-    left: 0;
-    transform: translateX(-50%);
     transition: all var(--transition-medium);
 }
 
 .timeline-item.left::before {
-    left: 100%;
+    right: -8px;
+    left: auto;
+}
+
+.timeline-item.right::before {
+    left: -8px;
+    right: auto;
 }
 
 .timeline-item.visible {
@@ -606,9 +618,12 @@ button {
     transform: translateY(0) translateX(0);
 }
 
-.timeline-item.left:hover::before,
+.timeline-item.left:hover::before {
+    transform: scale(1.3);
+}
+
 .timeline-item.right:hover::before {
-    transform: translateX(-50%) scale(1.3);
+    transform: scale(1.3);
 }
 
 .timeline-date {
@@ -636,14 +651,14 @@ button {
 
 .timeline-images {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: 6px;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .timeline-images img {
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
     border-radius: 12px;
     cursor: pointer;
@@ -653,6 +668,14 @@ button {
 
 .timeline-images img:hover {
     transform: scale(1.1);
+}
+
+.timeline-item.left .timeline-images {
+    justify-content: flex-end;
+}
+
+.timeline-item.right .timeline-images {
+    justify-content: flex-start;
 }
 
 /* ========================================
@@ -1144,7 +1167,7 @@ button {
     .timeline-item::before {
         left: 12px !important;
         right: auto !important;
-        transform: translateX(-50%) !important;
+        transform: none !important;
     }
 
     .timeline-item.left::before,
@@ -1154,11 +1177,16 @@ button {
 
     .timeline-item.left:hover::before,
     .timeline-item.right:hover::before {
-        transform: translateX(-50%) scale(1.3) !important;
+        transform: scale(1.3) !important;
     }
 
     .timeline-images {
         justify-content: flex-start !important;
+    }
+
+    .timeline-images img {
+        width: 150px !important;
+        height: 150px !important;
     }
 
     .music-btn {
