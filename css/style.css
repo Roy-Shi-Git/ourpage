@@ -1215,8 +1215,8 @@ button {
 
     .gallery-images img,
     .timeline-images img {
-        width: 300px !important;
-        height: 300px !important;
+        width: 200px !important;
+        height: 200px !important;
     }
 
     .scroll-hint {
