@@ -7,7 +7,8 @@
 // Configuration
 // ========================================
 const CONFIG = {
-    startDate: new Date('2020-12-31'),
+    // 2020-12-31 00:00:00 Beijing time = 2020-12-30 16:00:00 UTC
+    startDate: new Date('2020-12-30T16:00:00Z'),
     coupleNames: ['我们', '的'],
     musicVolume: 0.35,
     easterEggClicks: 0,
@@ -69,6 +70,7 @@ function initLoading() {
 // Day Counter
 // ========================================
 function updateCounter() {
+    // Use Beijing time: 2020-12-31 00:00:00 Beijing = 2020-12-30 16:00:00 UTC
     const now = new Date();
     const diff = now - CONFIG.startDate;
     
