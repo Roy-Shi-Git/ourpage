@@ -98,19 +98,25 @@ function updateProgressBar() {
 // ========================================
 function initMusic() {
     elements.bgm.volume = CONFIG.musicVolume;
+    let autoplayAttempted = false;
     
-    // Try to play immediately when loading screen is hidden
     const enableAutoplay = () => {
+        if (autoplayAttempted) return;
+        autoplayAttempted = true;
         elements.bgm.play().then(() => {
             elements.musicBtn.classList.add('playing');
-        }).catch(() => {
-            // If blocked, wait for any user interaction
-        });
+        }).catch(() => {});
         document.removeEventListener('click', enableAutoplay);
         document.removeEventListener('touchstart', enableAutoplay);
     };
     
-    // Play as soon as loading screen is hidden (user can see the page)
+    // Mobile: listen for first touch to trigger autoplay
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (isMobile) {
+        document.addEventListener('touchstart', enableAutoplay, { once: true });
+    }
+    
+    // Desktop: wait for loading screen to hide, then try autoplay
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
         const observer = new MutationObserver((mutations) => {
@@ -124,10 +130,10 @@ function initMusic() {
             });
         });
         observer.observe(loadingScreen.parentNode, { childList: true });
-        
-        // Fallback: also listen for click/touch
+        // Also allow click fallback
         document.addEventListener('click', enableAutoplay, { once: true });
-        document.addEventListener('touchstart', enableAutoplay, { once: true });
+    } else {
+        setTimeout(enableAutoplay, 800);
     }
     
     // Toggle play/pause on button click
