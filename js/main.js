@@ -12,7 +12,7 @@ const CONFIG = {
     coupleNames: ['我们', '的'],
     musicVolume: 0.35,
     easterEggClicks: 0,
-    easterEggTarget: 5,
+    easterEggTarget: 3,
     easterEggMessage: '我爱你，比昨天多一点，比明天少一点。'
 };
 
