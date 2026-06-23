@@ -295,7 +295,7 @@ function goToSlide(index) {
     nextImg.addEventListener('transitionend', removeOld, { once: true });
 
     slideshowIndex = index;
-    updateCounter();
+    updateSlideshowCounter();
 }
 
 function startSlideshow() {
@@ -312,7 +312,7 @@ function stopSlideshow() {
     }
 }
 
-function updateCounter() {
+function updateSlideshowCounter() {
     const el = document.getElementById('slideshow-counter');
     if (el) el.textContent = `${slideshowIndex + 1} / ${slideshowPhotos.length}`;
 }
